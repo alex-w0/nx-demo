@@ -6,8 +6,13 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getData() {
-    return this.appService.getData();
+  @Get('working')
+  workingPuppeteerEndpoint() {
+    return this.appService.workingPuppeteerService();
+  }
+
+  @Get('not-working')
+  notWorkingPuppeteerEndpoint() {
+    return this.appService.notWorkingPuppeteerService();
   }
 }

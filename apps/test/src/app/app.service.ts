@@ -3,30 +3,30 @@ import puppeteer from 'puppeteer';
 
 @Injectable()
 export class AppService {
-  async getData(): Promise<void> {
+  async workingPuppeteerService(): Promise<void> {
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
     await page.goto('https://developer.chrome.com/');
 
-     // Type into search box
-    await page.type('.search-box__input', 'automate beyond recorder');
+    const placeholderText = await page.$eval('.search-box__input', el => el.getAttribute('placeholder'));
 
-    // Wait and click on first result
-    const searchResultSelector = '.search-box__link';
-    await page.waitForSelector(searchResultSelector);
-    await page.click(searchResultSelector);
+    console.log("Placeholder text is: " + placeholderText);
 
-    // Localte the full title with a unique string
-    const textSelector = await page.waitForSelector(
-      'text/Customize and automate'
-    );
-    const fullTitle = await textSelector.evaluate(el => el.textContent);
+    await browser.close();
+  }
 
-    // Print the full title
-    console.log('TestThe title of this blog post is "%s".', fullTitle);
+  async notWorkingPuppeteerService(): Promise<void> {
 
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+
+    await page.goto('https://developer.chrome.com/');
+
+    const placeholderText = await page.$eval('.search-box__input_NOT_EXIST', el => el.getAttribute('placeholder'));
+
+    console.log("Placeholder text is: " + placeholderText);
     await browser.close();
   }
 }

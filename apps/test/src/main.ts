@@ -16,7 +16,7 @@ async function bootstrap() {
   const port = process.env.PORT || 3333;
   await app.listen(port);
   Logger.log(
-    `🚀 Application is runninasdfdsag23432 on: http://localhost:${port}/${globalPrefix}`
+    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
   );
 }
 
